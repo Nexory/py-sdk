@@ -40,6 +40,7 @@ class Environment:
     rpc_url: str
     relayer_max_polls: int = 100
     relayer_poll_frequency_ms: int = 2000
+    relayer_submit_retry_delay_ms: int = 500
 
 
 PRODUCTION = Environment(

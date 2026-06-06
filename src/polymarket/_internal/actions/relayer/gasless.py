@@ -70,7 +70,7 @@ async def prepare_gasless_transaction(
         raise UserInputError(f"metadata must be at most {_METADATA_MAX_LENGTH} characters")
 
     env = ctx.environment
-    retry_delay_s = env.relayer_poll_frequency_ms / 1000
+    retry_delay_s = env.relayer_submit_retry_delay_ms / 1000
     last_error: BaseException | None = None
     for attempt in range(GASLESS_SUBMIT_RETRY_ATTEMPTS + 1):
         try:
@@ -387,7 +387,7 @@ def prepare_gasless_transaction_sync(
         raise UserInputError(f"metadata must be at most {_METADATA_MAX_LENGTH} characters")
 
     env = ctx.environment
-    retry_delay_s = env.relayer_poll_frequency_ms / 1000
+    retry_delay_s = env.relayer_submit_retry_delay_ms / 1000
     last_error: BaseException | None = None
     for attempt in range(GASLESS_SUBMIT_RETRY_ATTEMPTS + 1):
         try:
