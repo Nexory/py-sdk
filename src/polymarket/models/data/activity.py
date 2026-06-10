@@ -121,7 +121,7 @@ class TradeActivity(_KnownActivityBase):
     outcome_index: int = Field(validation_alias="outcomeIndex")
     title: str
     slug: str
-    icon: str
+    icon: str | None = None
     event_slug: str = Field(validation_alias="eventSlug")
 
     @field_validator("condition_id", mode="before")
@@ -140,7 +140,7 @@ class _MarketEventActivity(_KnownActivityBase):
     amount: Decimal
     title: str
     slug: str
-    icon: str
+    icon: str | None = None
     event_slug: str = Field(validation_alias="eventSlug")
 
     @field_validator("condition_id", mode="before")

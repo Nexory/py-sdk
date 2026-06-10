@@ -209,3 +209,24 @@ def test_parse_activities_handles_list() -> None:
     assert len(activities) == 2
     assert isinstance(activities[0], TradeActivity)
     assert isinstance(activities[1], RewardActivity)
+
+
+# --- Finding D: icon: null tolerance ---
+
+
+def test_trade_activity_icon_null_parses_and_is_none() -> None:
+    """Data API returns icon: null for sparse historical rows (finding D).
+    TradeActivity must accept None instead of crashing with a ValidationError.
+    """
+    activity = parse_activity(_trade_payload(icon=None))
+    assert isinstance(activity, TradeActivity)
+    assert activity.icon is None
+
+
+def test_split_activity_icon_null_parses_and_is_none() -> None:
+    """_MarketEventActivity (and its subclasses, e.g. SplitActivity) must
+    also accept icon: null for sparse historical rows (finding D).
+    """
+    activity = parse_activity(_market_event_payload("SPLIT", icon=None))
+    assert isinstance(activity, SplitActivity)
+    assert activity.icon is None
